@@ -26,7 +26,7 @@
         <td><?php echo $mahasiswa[$i]->nama;?></td>
         <td>
           <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_editMahasiswa"
-          onclick='<?php echo "editMahasiswa(".$mahasiswa[$i]->nip.",\"".$mahasiswa[$i]->nama."\")"; ?>'
+          onclick='<?php echo "editMahasiswa(".$mahasiswa[$i]->nim.",\"".$mahasiswa[$i]->nama."\")"; ?>'
           ><i class="fa fa-edit"></i></button>
           <script type="text/javascript">
           function editMahasiswa(nim, nama) {
@@ -34,16 +34,16 @@
             document.formEditMahasiswa.nama.value = nama;
           }
           </script>
-          
+
           <a href="<?php echo site_url('admin/c_user/deleteMahasiswa/'.$mahasiswa[$i]->nim);?>" 
-            class="btn btn-danger confDel" ><i class='fa fa-trash'></i></a>
+            class="btn btn-danger confDel1" ><i class='fa fa-trash'></i></a>
             <?php echo'
             <script type="text/javascript">
-            var elems = document.getElementsByClassName("confDel");
-            var confirmIt = function (e) {
+            var elems1 = document.getElementsByClassName("confDel1");
+            var confirmIt1 = function (e) {
               if (!confirm("Apakah data Mahasiswa:\nNama : '.$mahasiswa[$i]->nama.'\nNIM : '.$mahasiswa[$i]->nim.'\nakan dihapus?")) e.preventDefault();
             };
-            elems['.$i.'].addEventListener("click", confirmIt, false);
+            elems1['.$i.'].addEventListener("click", confirmIt1, false);
           </script>'; ?>
         </td>
       </tr>
