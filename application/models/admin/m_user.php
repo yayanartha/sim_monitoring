@@ -1,5 +1,5 @@
 <?php
-class MUser extends CI_Model 
+class M_user extends CI_Model 
 {
     private $tbl_user = 'tbl_user';
     private $tbl_dosen = 'dosen';

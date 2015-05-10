@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class User extends CI_Controller 
+class C_user extends CI_Controller 
 {
     private $limit = 2;
 
@@ -14,7 +14,7 @@ class User extends CI_Controller
         // if (!$this->session->userdata('is_admin_login')) 
         //     redirect('admin/home');
 
-        $this->load->model('mUser');
+        $this->load->model('admin/m_user');
     }
 
     public function index($offset = 0)
@@ -22,7 +22,7 @@ class User extends CI_Controller
         $perpage = 2;
 
         //load data
-        $arr['dosen'] = $this->mUser->semuaDosen()->result();
+        $arr['dosen'] = $this->m_user->semuaDosen()->result();
         // $arr['mahasiswa'] = $this->mUser->semuaMahasiswa($this->limit, $offset, $order_column, $order_type)->result();
         // $arr['admin'] = $this->mUser->semuaAdmin($this->limit, $offset, $order_column, $order_type)->result();
         
@@ -35,9 +35,9 @@ class User extends CI_Controller
         // $data['pagination'] = $this->pagination->create_links();
 
         $arr['page'] = 'user';
-        $this->load->view('admin/vHeader', $arr);
-        $this->load->view('admin/vUser', $arr);
-        $this->load->view('admin/vFooter');
+        $this->load->view('admin/v_header', $arr);
+        $this->load->view('admin/v_user', $arr);
+        $this->load->view('admin/v_footer');
     }
 
     function tambahDosen()
