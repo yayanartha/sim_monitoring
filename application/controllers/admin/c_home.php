@@ -11,7 +11,9 @@ class C_home extends CI_Controller {
     {
         $id=$this->session->userdata('id');
         if (!empty($id)) {
-            $this->load->view('admin/v_home');  
+            $this->load->view('admin/v_header');
+            $this->load->view('admin/v_home');
+            $this->load->view('admin/v_footer');
         }
         else
         {
