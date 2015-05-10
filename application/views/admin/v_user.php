@@ -21,149 +21,14 @@
 
         <!-- Tab panes -->
         <div class="tab-content" style="margin-top: 20px;">
-          <div role="tabpanel" class="tab-pane fade in active" id="dosen">
-            <button type="button" data-toggle="modal" data-target="#modal_tambahDosen" class="btn btn-success" ><i class="fa fa-plus"></i> Tambah dosen</button>
+          <!-- Tab Dosen -->
+          <?php $this->load->view('admin/dosen/v_dosen'); ?>
 
-            <form class="form-inline pull-right">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                  <input type="text" class="form-control" id="searchDosen">
-                </div>
-              </div>
-              <button type="submit" id="btn-searchDosen" class="btn btn-primary">Search</button>
-            </form>
+          <!-- Tab Mhs -->
+          <?php $this->load->view('admin/mhs/v_mhs'); ?>
 
-            <table id="tabelDosen" class="table table-hover table-striped table-bordered" style="margin-top:10px;">
-              <thead>
-                <th>No.</th>
-                <th>NIP</th>
-                <th>Nama Dosen</th>
-                <th>Aksi</th>
-              </thead>
-              <tbody>
-                <?php $no=0; for($i = 0; $i < count($dosen); $i++): $no++;?>
-                <tr>
-                    <td><?php echo $no;?></td>
-                    <td><?php echo $dosen[$i]->nip;?></td>
-                    <td><?php echo $dosen[$i]->nama;?></td>
-                    <td>
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_editDosen"
-                        onclick='<?php echo "editDosen(".$dosen[$i]->nip.",\"".$dosen[$i]->nama."\")"; ?>'
-                      ><i class="fa fa-edit"></i></button>
-                      <script type="text/javascript">
-                        function editDosen(nip, nama) {
-                          document.formEditDosen.nip.value = nip;
-                          document.formEditDosen.nama.value = nama;
-                        }
-                      </script>
-                      
-                      <a href="<?php echo site_url('admin/c_user/deleteDosen/'.$dosen[$i]->nip);?>" 
-                        class="btn btn-danger confDel" ><i class='fa fa-trash'></i></a>
-                      <?php echo'
-                      <script type="text/javascript">
-                        var elems = document.getElementsByClassName("confDel");
-                        var confirmIt = function (e) {
-                            if (!confirm("Apakah data Dosen:\nNama : '.$dosen[$i]->nama.'\nNIP : '.$dosen[$i]->nip.'\nakan dihapus?")) e.preventDefault();
-                        };
-                        elems['.$i.'].addEventListener("click", confirmIt, false);
-                      </script>'; ?>
-                    </td>
-                </tr>
-                <?php endfor;?>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="pull-right">
-            <ul class="pagination" id="paging_dosen"></ul>
-          </div>
-
-          <div role="tabpanel" class="tab-pane fade" id="mahasiswa">
-            <button type="button" data-toggle="modal" data-target="#modal_tambahMahasiswa" class="btn btn-success" ><i class="fa fa-plus"></i> Tambah Mahasiswa</button>
-
-            <form class="form-inline pull-right">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                  <input type="text" class="form-control" id="searchMahasiswa">
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-
-            <table class="table table-hover table-striped table-bordered" style="margin-top:10px;">
-              <thead>
-                <th>No.</th>
-                <th>NIM</th>
-                <th>Nama Mahasiswa</th>
-                <th>Aksi</th>
-              </thead>
-              <tbody>
-                <?php $no=0; for($i = 0; $i < count($mahasiswa); $i++): $no++;?>
-                <tr>
-                    <td><?php echo $no;?></td>
-                    <td><?php echo $mahasiswa[$i]->nim;?></td>
-                    <td><?php echo $mahasiswa[$i]->nama;?></td>
-                    <td>
-                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_editMahasiswa"
-                        onclick='<?php echo "editMahasiswa(".$mahasiswa[$i]->nip.",\"".$mahasiswa[$i]->nama."\")"; ?>'
-                      ><i class="fa fa-edit"></i></button>
-                      <script type="text/javascript">
-                        function editMahasiswa(nim, nama) {
-                          document.formEditMahasiswa.nim.value = nim;
-                          document.formEditMahasiswa.nama.value = nama;
-                        }
-                      </script>
-                      
-                      <a href="<?php echo site_url('admin/c_user/deleteMahasiswa/'.$mahasiswa[$i]->nim);?>" 
-                        class="btn btn-danger confDel" ><i class='fa fa-trash'></i></a>
-                      <?php echo'
-                      <script type="text/javascript">
-                        var elems = document.getElementsByClassName("confDel");
-                        var confirmIt = function (e) {
-                            if (!confirm("Apakah data Mahasiswa:\nNama : '.$mahasiswa[$i]->nama.'\nNIM : '.$mahasiswa[$i]->nim.'\nakan dihapus?")) e.preventDefault();
-                        };
-                        elems['.$i.'].addEventListener("click", confirmIt, false);
-                      </script>'; ?>
-                    </td>
-                </tr>
-                <?php endfor;?>
-              </tbody>
-            </table>
-          </div>
-
-          <div class="pull-right">
-            <ul class="pagination"></ul>
-          </div>
-
-          <div role="tabpanel" class="tab-pane fade" id="admin">
-            <button type="button" data-toggle="modal" data-target="#modal_tambahAdmin" class="btn btn-success" ><i class="fa fa-plus"></i> Tambah Admin</button>
-
-            <form class="form-inline pull-right">
-              <div class="form-group">
-                <div class="input-group">
-                  <div class="input-group-addon"><i class="fa fa-search"></i></div>
-                  <input type="text" class="form-control" id="searchAdmin">
-                </div>
-              </div>
-              <button type="submit" class="btn btn-primary">Search</button>
-            </form>
-
-            <table class="table table-hover table-striped table-bordered" style="margin-top:10px;">
-              <thead>
-                <th>No.</th>
-                <th>ID Admin</th>
-                <th>Nama Admin</th>
-                <th>Password</th>
-                <th>Aksi</th>
-              </thead>
-              <tbody><?php ?></tbody>
-            </table>
-
-            <div class="pull-right">
-              <ul class="pagination"></ul>
-            </div>
+          <!-- Tab User -->          
+          <?php $this->load->view('admin/user/v_user'); ?>
 
           </div>
         </div>
@@ -180,41 +45,10 @@
 <?php $this->load->view('admin/dosen/v_editDosen'); ?>
 
 <!-- Modal Tambah Mahasiswa -->
-<?php $this->load->view('admin/dosen/v_tambahMahasiswa'); ?>
+<?php $this->load->view('admin/mhs/v_tambahMahasiswa'); ?>
 
 <!-- Modal Edit Mahasiswa -->
-<div class="modal fade" id="modal_editMahasiswa" tabindex="-1" role="dialog" aria-labelledby="modal_editMahasiswaLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal_editMahasiswaLabel">Ubah Data Mahasiswa</h4>
-      </div>
-      <div class="modal-body">
-        <?php 
-        $attributes = array('name' => 'formEditMahasiswa'); 
-        echo form_open_multipart('admin/c_user/editMahasiswa', $attributes);?>
-          <div class="form-group">
-            <label for="nip" class="col-sm-3 control-label">N.I.P. </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM" required>
-            </div>
-          </div>
-          <br/><br/>
-          <div class="form-group">
-            <label for="nama" class="col-sm-3 control-label">Nama</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" required>
-            </div>
-          </div>
-          <br/><br/>
-          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-          <input type="submit" class="btn btn-warning" value="Ubah">
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<?php $this->load->view('admin/mhs/v_editMahasiswa'); ?>
 
 <!-- Modal Tambah Admin -->
 <div class="modal fade" id="modal_tambahAdmin" tabindex="-1" role="dialog" aria-labelledby="modal_tambahAdminLabel" aria-hidden="true">

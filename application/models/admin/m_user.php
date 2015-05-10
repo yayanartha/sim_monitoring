@@ -8,31 +8,16 @@ class M_user extends CI_Model
     function semuaDosen()
     {
         $sql = "SELECT * FROM dosen";
-        // if(empty($order_column) || empty($order_type))
-        //     $sql .= " ORDER BY "+$this->primary;
-        // else
-        //     $sql .= " ORDER BY "+$order_column+" "+$order_type;
-
         return $this->db->query($sql);
     }
-    function semuaMahasiswa($limit=10, $offset=0, $order_column='', $order_type='asc')
+    function semuaMahasiswa()
     {
         $sql = "SELECT * FROM mhs";
-        // if(empty($order_column) || empty($order_type))
-        //     $sql .= " ORDER BY "+$this->primary;
-        // else
-        //     $sql .= " ORDER BY "+$order_column+" "+$order_type;
-
         return $this->db->query($sql);
     }
-    function semuaAdmin($limit=10, $offset=0, $order_column='', $order_type='asc')
+    function semuaAdmin()
     {
         $sql = "SELECT * FROM user WHERE level = 3";
-        // if(empty($order_column) || empty($order_type))
-        //     $sql .= " ORDER BY "+$this->primary;
-        // else
-        //     $sql .= " ORDER BY "+$order_column+" "+$order_type;
-
         return $this->db->query($sql);
     }
 
@@ -62,6 +47,19 @@ class M_user extends CI_Model
         return $query;
     }
 
+    function cekMahasiswa($kode)
+    {
+        $this->db->where("nim", $kode);
+        $query = $this->db->get("mhs");
+        
+        return $query;
+    }
+
+    function cekAdmin($kode)
+    {
+
+    }
+
     function simpanDosen($info)
     {
         $this->db->insert("dosen", $info);
@@ -77,5 +75,22 @@ class M_user extends CI_Model
     {
         $this->db->where('nip', $nip);
         $this->db->delete('dosen');
+    }
+
+    function simpanMahasiswa($info)
+    {
+        $this->db->insert("mhs", $info);
+    }
+
+    function updateMahasiswa($nim, $nama)
+    {
+        $sql = "UPDATE mhs SET nama = ? WHERE nim = ?";
+        $this->db->query($sql, array($nama, $nim));
+    }
+
+    function deleteMahasiswa($nim)
+    {
+        $this->db->where('nim', $nim);
+        $this->db->delete('mhs');
     }
 }

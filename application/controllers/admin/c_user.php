@@ -81,7 +81,7 @@ class C_user extends CI_Controller
         else
         {                 
             $info = array(
-                'nip'   => $this->input->post('inputNIM'),
+                'nim'   => $this->input->post('inputNIM'),
                 'nama'  => $this->input->post('inputNamaMahasiswa')
             );
 

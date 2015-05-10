@@ -8,28 +8,22 @@
       <div class="modal-body">
         <?php echo form_open_multipart('admin/c_user/tambahMahasiswa');?>
           <div class="form-group">
-            <label for="inputNIM" class="col-sm-3 control-label">NIM </label>
+            <label for="inputNIM" class="col-sm-3 control-label">NIM</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputNIM" placeholder="NIM">
+              <input type="text" class="form-control" id="inputNIM" name="inputNIM" placeholder="NIM">
             </div>
           </div>
+          <br><br>
           <div class="form-group">
             <label for="inputNamaMahasiswa" class="col-sm-3 control-label">Nama</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputNamaMahasiswa" placeholder="Nama">
+              <input type="text" class="form-control" id="inputNamaMahasiswa" name="inputNamaMahasiswa" placeholder="Nama">
             </div>
           </div>
-          <div class="form-group">
-            <label for="inputPasswordMahasiswa" class="col-sm-3 control-label">Password</label>
-            <div class="col-sm-9">
-              <input type="password" class="form-control" id="inputPasswordMahasiswa" placeholder="Password">
-            </div>
-          </div>
+          <br><br>
+          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
+          <input type="submit" class="btn btn-primary" value="Save changes">
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
