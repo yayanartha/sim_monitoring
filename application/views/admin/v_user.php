@@ -97,10 +97,39 @@
                 <th>No.</th>
                 <th>NIM</th>
                 <th>Nama Mahasiswa</th>
-                <th>Password</th>
                 <th>Aksi</th>
               </thead>
-              <tbody><?php ?></tbody>
+              <tbody>
+                <?php $no=0; for($i = 0; $i < count($mahasiswa); $i++): $no++;?>
+                <tr>
+                    <td><?php echo $no;?></td>
+                    <td><?php echo $mahasiswa[$i]->nim;?></td>
+                    <td><?php echo $mahasiswa[$i]->nama;?></td>
+                    <td>
+                      <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#modal_editMahasiswa"
+                        onclick='<?php echo "editMahasiswa(".$mahasiswa[$i]->nip.",\"".$mahasiswa[$i]->nama."\")"; ?>'
+                      ><i class="fa fa-edit"></i></button>
+                      <script type="text/javascript">
+                        function editMahasiswa(nim, nama) {
+                          document.formEditMahasiswa.nim.value = nim;
+                          document.formEditMahasiswa.nama.value = nama;
+                        }
+                      </script>
+                      
+                      <a href="<?php echo site_url('admin/c_user/deleteMahasiswa/'.$mahasiswa[$i]->nim);?>" 
+                        class="btn btn-danger confDel" ><i class='fa fa-trash'></i></a>
+                      <?php echo'
+                      <script type="text/javascript">
+                        var elems = document.getElementsByClassName("confDel");
+                        var confirmIt = function (e) {
+                            if (!confirm("Apakah data Mahasiswa:\nNama : '.$mahasiswa[$i]->nama.'\nNIM : '.$mahasiswa[$i]->nim.'\nakan dihapus?")) e.preventDefault();
+                        };
+                        elems['.$i.'].addEventListener("click", confirmIt, false);
+                      </script>'; ?>
+                    </td>
+                </tr>
+                <?php endfor;?>
+              </tbody>
             </table>
           </div>
 
@@ -145,53 +174,30 @@
 </div><!-- /#page-wrapper -->
 
 <!-- Modal Tambah Dosen -->
-<div class="modal fade" id="modal_tambahDosen" tabindex="-1" role="dialog" aria-labelledby="modal_tambahDosenLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal_tambahDosenLabel">Tambah Data Dosen</h4>
-      </div>
-      <div class="modal-body">
-        <?php echo form_open_multipart('admin/c_user/tambahDosen');?>
-          <div class="form-group" style="margin-bottom: 20px;">
-            <label for="inputNIP" class="col-sm-3 control-label">N.I.P. </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputNIP" name="inputNIP" placeholder="NIP" required>
-            </div>
-          </div>
-          <br/><br/>
-          <div class="form-group" style="margin-bottom: 20px;">
-            <label for="inputNamaDosen" class="col-sm-3 control-label">Nama</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputNamaDosen" name="inputNamaDosen" placeholder="Nama" required>
-            </div>
-          </div>
-          <br/><br/>
-          <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-          <input type="submit" class="btn btn-primary" value="Save">
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<?php $this->load->view('admin/dosen/v_tambahDosen'); ?>
 
 <!-- Modal Edit Dosen -->
-<div class="modal fade" id="modal_editDosen" tabindex="-1" role="dialog" aria-labelledby="modal_tambahDosenLabel" aria-hidden="true">
+<?php $this->load->view('admin/dosen/v_editDosen'); ?>
+
+<!-- Modal Tambah Mahasiswa -->
+<?php $this->load->view('admin/dosen/v_tambahMahasiswa'); ?>
+
+<!-- Modal Edit Mahasiswa -->
+<div class="modal fade" id="modal_editMahasiswa" tabindex="-1" role="dialog" aria-labelledby="modal_editMahasiswaLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal_editDosenLabel">Ubah Data Dosen</h4>
+        <h4 class="modal-title" id="modal_editMahasiswaLabel">Ubah Data Mahasiswa</h4>
       </div>
       <div class="modal-body">
         <?php 
-        $attributes = array('name' => 'formEditDosen'); 
-        echo form_open_multipart('admin/c_user/editDosen', $attributes);?>
+        $attributes = array('name' => 'formEditMahasiswa'); 
+        echo form_open_multipart('admin/c_user/editMahasiswa', $attributes);?>
           <div class="form-group">
             <label for="nip" class="col-sm-3 control-label">N.I.P. </label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="nip" name="nip" placeholder="NIP" required>
+              <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM" required>
             </div>
           </div>
           <br/><br/>
@@ -210,44 +216,6 @@
   </div>
 </div>
 
-<!-- Modal Tambah Mahasiswa -->
-<div class="modal fade" id="modal_tambahMahasiswa" tabindex="-1" role="dialog" aria-labelledby="modal_tambahMahasiswaLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal_tambahMahasiswaLabel">Tambah Data Mahasiswa</h4>
-      </div>
-      <div class="modal-body">
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">
-          <div class="form-group">
-            <label for="inputNIM" class="col-sm-3 control-label">NIM </label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputNIM" placeholder="NIP">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputNamaMahasiswa" class="col-sm-3 control-label">Nama</label>
-            <div class="col-sm-9">
-              <input type="text" class="form-control" id="inputNamaMahasiswa" placeholder="Nama">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputPasswordMahasiswa" class="col-sm-3 control-label">Password</label>
-            <div class="col-sm-9">
-              <input type="password" class="form-control" id="inputPasswordMahasiswa" placeholder="Password">
-            </div>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- Modal Tambah Admin -->
 <div class="modal fade" id="modal_tambahAdmin" tabindex="-1" role="dialog" aria-labelledby="modal_tambahAdminLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -257,7 +225,7 @@
         <h4 class="modal-title" id="modal_tambahAdminLabel">Tambah Data Admin</h4>
       </div>
       <div class="modal-body">
-        <form class="form-horizontal" method="post" enctype="multipart/form-data">
+        <?php echo form_open_multipart('admin/c_user/tambahAdmin');?>
           <div class="form-group">
             <label for="inputID" class="col-sm-3 control-label">ID Admin</label>
             <div class="col-sm-9">

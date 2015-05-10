@@ -11,30 +11,17 @@ class C_user extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
 
-        // if (!$this->session->userdata('is_admin_login')) 
-        //     redirect('admin/home');
-
         $this->load->model('admin/m_user');
     }
 
-    public function index($offset = 0)
+    public function index()
     {
-        $perpage = 2;
-
         //load data
         $arr['dosen'] = $this->m_user->semuaDosen()->result();
-        // $arr['mahasiswa'] = $this->mUser->semuaMahasiswa($this->limit, $offset, $order_column, $order_type)->result();
-        // $arr['admin'] = $this->mUser->semuaAdmin($this->limit, $offset, $order_column, $order_type)->result();
-        
-        //$config['base_url'] = site_url('admin/index/');
-        // $config['total_dosen'] = $this->mUser->jumlahDosen();
-        // $config['total_mahasiswa'] = $this->mUser->jumlahMahasiswa();
-        // $config['total_admin'] = $this->mUser->jumlahAdmin();
-        // $config['per_page'] = $perpage;
-        // $this->pagination->initialize($config);
-        // $data['pagination'] = $this->pagination->create_links();
+        $arr['mahasiswa'] = $this->m_user->semuaMahasiswa()->result();
 
         $arr['page'] = 'user';
+
         $this->load->view('admin/v_header', $arr);
         $this->load->view('admin/v_user', $arr);
         $this->load->view('admin/v_footer');
@@ -42,35 +29,25 @@ class C_user extends CI_Controller
 
     function tambahDosen()
     {
-        // $this->_set_rules();
+        $nip = $this->input->post('inputNIP');
+        $cekDosen = $this->m_user->cekDosen($nip);
 
-        // if($this->form_validation->run() == true)
-        // {
-            $nip = $this->input->post('inputNIP');
-            $cekDosen = $this->m_user->cekDosen($nip);
+        if($cekDosen->num_rows() > 0)
+        {
+            $data['message'] = "<div class='alert alert-warning'>NIP sudah digunakan</div>";
+            redirect('admin/c_user');
+        }
+        else
+        {                 
+            $info = array(
+                'nip'   => $this->input->post('inputNIP'),
+                'nama'  => $this->input->post('inputNamaDosen')
+            );
 
-            if($cekDosen->num_rows() > 0)
-            {
-                $data['message'] = "<div class='alert alert-warning'>NIP sudah digunakan</div>";
-                redirect('admin/c_user', $data);
-            }
-            else
-            {                 
-                $info = array(
-                    'nip'   => $this->input->post('inputNIP'),
-                    'nama'  => $this->input->post('inputNamaDosen')
-                );
-
-                $data['message'] = "Data berhasil ditambahkan";
-                $this->m_user->simpanDosen($info);
-                redirect('admin/c_user', $data);
-            }
-        // }
-        // else
-        // {
-        //     $data['message'] = "";
-        //     redirect('admin/user', $data);
-        // }
+            $data['message'] = "Data berhasil ditambahkan";
+            $this->m_user->simpanDosen($info);
+            redirect('admin/c_user');
+        }
     }
 
     function editDosen()
@@ -85,10 +62,66 @@ class C_user extends CI_Controller
         redirect('admin/c_user', $data);
     }
 
-    public function deleteDosen($nip)
+    function deleteDosen($nip)
     {
-        $this->mUser->deleteDosen($nip);
+        $this->m_user->deleteDosen($nip);
         redirect('admin/c_user');
+    }
+
+    function tambahMahasiswa()
+    {
+        $nim = $this->input->post('inputNIM');
+        $cekMahasiswa = $this->m_user->cekMahasiswa($nim);
+
+        if($cekMahasiswa->num_rows() > 0)
+        {
+            $data['message'] = "<div class='alert alert-warning'>NIM sudah digunakan</div>";
+            redirect('admin/c_user', $data);
+        }
+        else
+        {                 
+            $info = array(
+                'nip'   => $this->input->post('inputNIM'),
+                'nama'  => $this->input->post('inputNamaMahasiswa')
+            );
+
+            $data['message'] = "Data berhasil ditambahkan";
+            $this->m_user->simpanMahasiswa($info);
+            redirect('admin/c_user', $data);
+        }
+    }
+
+    function editMahasiswa()
+    {
+        $info = array(
+            'nim'   => $this->input->post('nim'),
+            'nama'  => $this->input->post('nama')
+        );
+
+        $data['message'] = "Data berhasil diupdate";
+        $this->m_user->updateMahasiswa($info['nim'], $info['nama']);
+        redirect('admin/c_user', $data);
+    }
+
+    function deleteMahasiswa($nim)
+    {
+        $this->m_user->deleteMahasiswa($nim);
+        redirect('admin/c_user');
+    }
+
+    function tambahAdmin()
+    {
+
+    }
+
+    function editAdmin()
+    {
+
+    }
+
+    function deleteAdmin($id)
+    {
+
     }
 
     function _set_rules(){
