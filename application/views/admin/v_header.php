@@ -47,7 +47,7 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li <?php echo  $pg =='dash' ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url(); ?>admin/c_home"><i class="fa fa-dashboard"></i> Dashboard</a>
+              <a href="<?php echo base_url(); ?>admin/c_login"><i class="fa fa-dashboard"></i> Dashboard</a>
             </li>
             <li <?php echo  $pg =='user' ? 'class="active"' : '' ?>>
               <a href="<?php echo base_url(); ?>admin/c_user"><i class="fa fa-user"></i> User</a>

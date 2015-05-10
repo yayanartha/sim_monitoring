@@ -58,7 +58,7 @@
                         }
                       </script>
                       
-                      <a href="<?php echo site_url('admin/user/deleteDosen/'.$dosen[$i]->nip);?>" 
+                      <a href="<?php echo site_url('admin/c_user/deleteDosen/'.$dosen[$i]->nip);?>" 
                         class="btn btn-danger confDel" ><i class='fa fa-trash'></i></a>
                       <?php echo'
                       <script type="text/javascript">
@@ -153,8 +153,7 @@
         <h4 class="modal-title" id="modal_tambahDosenLabel">Tambah Data Dosen</h4>
       </div>
       <div class="modal-body">
-        <?php echo form_open_multipart('admin/user/tambahDosen');?>
-        <!-- <form class="form-horizontal" action="<?php echo base_url('admin/user/tambahDosen'); ?>" method="post" enctype="multipart/form-data"> -->
+        <?php echo form_open_multipart('admin/c_user/tambahDosen');?>
           <div class="form-group" style="margin-bottom: 20px;">
             <label for="inputNIP" class="col-sm-3 control-label">N.I.P. </label>
             <div class="col-sm-9">
@@ -188,7 +187,7 @@
       <div class="modal-body">
         <?php 
         $attributes = array('name' => 'formEditDosen'); 
-        echo form_open_multipart('admin/user/editDosen', $attributes);?>
+        echo form_open_multipart('admin/c_user/editDosen', $attributes);?>
           <div class="form-group">
             <label for="nip" class="col-sm-3 control-label">N.I.P. </label>
             <div class="col-sm-9">

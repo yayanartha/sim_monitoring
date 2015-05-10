@@ -47,12 +47,12 @@ class C_user extends CI_Controller
         // if($this->form_validation->run() == true)
         // {
             $nip = $this->input->post('inputNIP');
-            $cekDosen = $this->mUser->cekDosen($nip);
+            $cekDosen = $this->m_user->cekDosen($nip);
 
             if($cekDosen->num_rows() > 0)
             {
                 $data['message'] = "<div class='alert alert-warning'>NIP sudah digunakan</div>";
-                redirect('admin/user', $data);
+                redirect('admin/c_user', $data);
             }
             else
             {                 
@@ -62,8 +62,8 @@ class C_user extends CI_Controller
                 );
 
                 $data['message'] = "Data berhasil ditambahkan";
-                $this->mUser->simpanDosen($info);
-                redirect('admin/user', $data);
+                $this->m_user->simpanDosen($info);
+                redirect('admin/c_user', $data);
             }
         // }
         // else
@@ -81,14 +81,14 @@ class C_user extends CI_Controller
         );
 
         $data['message'] = "Data berhasil diupdate";
-        $this->mUser->updateDosen($info['nip'], $info['nama']);
-        redirect('admin/user', $data);
+        $this->m_user->updateDosen($info['nip'], $info['nama']);
+        redirect('admin/c_user', $data);
     }
 
     public function deleteDosen($nip)
     {
         $this->mUser->deleteDosen($nip);
-        redirect('admin/user');
+        redirect('admin/c_user');
     }
 
     function _set_rules(){
