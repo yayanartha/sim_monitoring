@@ -19,6 +19,7 @@ class C_user extends CI_Controller
         //load data
         $arr['dosen'] = $this->m_user->semuaDosen()->result();
         $arr['mahasiswa'] = $this->m_user->semuaMahasiswa()->result();
+        $arr['admin'] = $this->m_user->semuaAdmin()->result();
 
         $arr['page'] = 'user';
 
@@ -111,17 +112,45 @@ class C_user extends CI_Controller
 
     function tambahAdmin()
     {
+        $id = $this->input->post('inputID');
+        $cekAdmin = $this->m_user->cekAdmin($id);
 
+        if ($cekAdmin->num_rows() > 0)
+        {
+            $data['message'] = "<div class='alert alert-warning'>NIM sudah digunakan</div>";
+            redirect('admin/c_user', $data);
+        }
+        else
+        {                 
+            $info = array(
+                'id'   => $this->input->post('inputID'),
+                'username'  => $this->input->post('inputNamaAdmin'),
+                'password' => $this->input->post('inputPwdAdmin'),
+                'level' => 3
+            );
+
+            $data['message'] = "Data berhasil ditambahkan";
+            $this->m_user->simpanAdmin($info);
+            redirect('admin/c_user', $data);
+        }
     }
 
     function editAdmin()
     {
+        $info = array(
+            'id'   => $this->input->post('id'),
+            'username'  => $this->input->post('username')
+        );
 
+        $data['message'] = "Data berhasil diupdate";
+        $this->m_user->updateAdmin($info['id'], $info['username']);
+        redirect('admin/c_user', $data);
     }
 
     function deleteAdmin($id)
     {
-
+        $this->m_user->deleteAdmin($id);
+        redirect('admin/c_user');
     }
 
     function _set_rules(){

@@ -10,7 +10,26 @@ class C_login extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('v_login');
+		$id=$this->session->userdata('id');
+        if (!empty($id)) {
+            $this->load->view('v_login');
+        }
+        else
+        {
+            $level=$this->session->userdata('level');
+			if($level==1)
+			{
+				redirect(site_url('dosen/c_home'));
+			}
+			else if($level==2)
+			{
+				redirect(site_url('mahasiswa/c_home'));
+			}
+			else if($level==3)
+			{
+				redirect(site_url('admin/c_home'));
+			}
+        }
 	}
 
 	public function proses_login()

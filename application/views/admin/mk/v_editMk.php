@@ -1,25 +1,25 @@
-<div class="modal fade" id="modal_editAdmin" tabindex="-1" role="dialog" aria-labelledby="modal_editAdminLabel" aria-hidden="true">
+<div class="modal fade" id="modal_editMk" tabindex="-1" role="dialog" aria-labelledby="modal_editMkLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="modal_editAdminLabel">Ubah Data Admin</h4>
+        <h4 class="modal-title" id="modal_editMkLabel">Ubah Data Matakuliah</h4>
       </div>
       <div class="modal-body">
         <?php 
-        $attributes = array('name' => 'formEditAdmin'); 
-        echo form_open_multipart('admin/c_user/editAdmin', $attributes);?>
+        $attributes = array('name' => 'formEditMk'); 
+        echo form_open_multipart('admin/c_user/editMk', $attributes);?>
           <div class="form-group">
-            <label for="id" class="col-sm-3 control-label">ID </label>
+            <label for="nip" class="col-sm-3 control-label">N.I.P. </label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="id" name="id" placeholder="ID" required>
+              <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM" required>
             </div>
           </div>
           <br/><br/>
           <div class="form-group">
             <label for="nama" class="col-sm-3 control-label">Nama</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+              <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" required>
             </div>
           </div>
           <br/><br/>

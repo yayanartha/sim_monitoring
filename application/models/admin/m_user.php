@@ -57,7 +57,10 @@ class M_user extends CI_Model
 
     function cekAdmin($kode)
     {
-
+        $this->db->where("id", $kode);
+        $query = $this->db->get("user");
+        
+        return $query;
     }
 
     function simpanDosen($info)
@@ -92,5 +95,22 @@ class M_user extends CI_Model
     {
         $this->db->where('nim', $nim);
         $this->db->delete('mhs');
+    }
+
+    function simpanAdmin($info)
+    {
+        $this->db->insert("user", $info);
+    }
+
+    function updateAdmin($id, $username)
+    {
+        $sql = "UPDATE user SET username = ? WHERE id = ?";
+        $this->db->query($sql, array($username, $id));
+    }
+
+    function deleteAdmin($id)
+    {
+        $this->db->where('id', $id);
+        $this->db->delete('user');
     }
 }
