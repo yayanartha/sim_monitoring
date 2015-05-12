@@ -17,7 +17,7 @@ class C_home extends CI_Controller {
         }
         else
         {
-            redirect(site_url('c_login'));
+            redirect(site_url('login'));
         }
     }
 

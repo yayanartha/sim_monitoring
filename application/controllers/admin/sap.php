@@ -2,66 +2,72 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Matakuliah extends CI_Controller 
+class Sap extends CI_Controller 
 {
     function __construct() 
     {
         parent::__construct();
         $this->load->library('form_validation');
 
-        $this->load->model('admin/m_matakuliah');
+        $this->load->model('admin/m_sap');
     }
 
     function index() 
     {
-        $arr['mk'] = $this->m_matakuliah->semuaMk()->result();
+        $arr['sap'] = $this->m_sap->semuaSap()->result();
 
-        $arr['page'] = 'matakuliah';
+        $arr['page'] = 'sap';
 
         $this->load->view('admin/v_header', $arr);
-        $this->load->view('admin/mk/v_mk', $arr);
+        $this->load->view('admin/sap/v_sap', $arr);
         $this->load->view('admin/v_footer');
     }
 
-    function tambahMk()
+    function tambahSap()
     {
-        $id_mk = $this->input->post('inputKode');
-        $cekMk = $this->m_matakuliah->cekMk($id_mk);
+        $id_sap = $this->input->post('inputID');
+        $cekSap = $this->m_sap->cekSap($id_sap);
 
-        if($cekMk->num_rows() > 0)
+        if($cekSap->num_rows() > 0)
         {
             $data['message'] = "<div class='alert alert-warning'>Kode sudah digunakan</div>";
-            redirect('admin/matakuliah');
+            redirect('admin/sap');
         }
         else
         {                 
             $info = array(
-                'id_mk'   => $this->input->post('inputKode'),
-                'nama_matkul'  => $this->input->post('inputNamaMatakuliah')
+                'id_sap'   => $this->input->post('inputID'),
+                'nip'  => $this->input->post('inputNipDosen'),
+                'id_mk'  => $this->input->post('inputKodeMk'),
+                'status'  => $this->input->post('status'),
+                'id_periode'  => $this->input->post('id_periode')
             );
 
             $data['message'] = "Data berhasil ditambahkan";
-            $this->m_matakuliah->simpanMk($info);
-            redirect('admin/matakuliah');
+            $this->m_sap->simpanSap($info);
+            redirect('admin/sap');
         }
     }
 
-    function editMk()
+    function editSap()
     {
         $info = array(
-            'id_mk'   => $this->input->post('id_mk'),
-            'nama_matkul'  => $this->input->post('nama_matkul')
+            'id_sap'   => $this->input->post('inputID'),
+            'nip'  => $this->input->post('inputNipDosen'),
+            'id_mk'  => $this->input->post('inputKodeMk'),
+            'status'  => $this->input->post('status'),
+            'id_periode'  => $this->input->post('id_periode')
         );
 
         $data['message'] = "Data berhasil diupdate";
-        $this->m_matakuliah->updateMk($info['id_mk'], $info['nama_matkul']);
-        redirect('admin/matakuliah', $data);
+        $this->m_sap->updateSap($info['is_sap'], $info['nip'], $info['id_mk'], $info['status'], $info['id_periode']);
+        redirect('admin/sap', $data);
     }
 
-    function deleteMk($id_mk)
+    function deleteSap($id_sap)
     {
-        $this->m_matakuliah->deleteMk($id_mk);
-        redirect('admin/matakuliah');
+        $this->m_sap->deleteSap($id_sap);
+        redirect('admin/sap');
     }
 
     function get_dataMatakuliah()

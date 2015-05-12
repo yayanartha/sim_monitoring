@@ -47,7 +47,16 @@
         <div class="collapse navbar-collapse navbar-ex1-collapse">
           <ul class="nav navbar-nav side-nav">
             <li <?php echo  $pg =='dash' ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url(); ?>admin/c_login"><i class="fa fa-dashboard"></i> Dashboard</a>
+              <a href="<?php echo base_url(); ?>admin/c_home"><i class="fa fa-dashboard"></i> Dashboard</a>
+            </li>
+            <li <?php echo  $pg =='sap' ? 'class="active"' : '' ?>>
+              <a href="<?php echo base_url(); ?>admin/sap"><i class="fa fa-file"></i> SAP</a>
+            </li>
+            <li <?php echo  $pg =='jadwal' ? 'class="active"' : '' ?>>
+              <a href="<?php echo base_url(); ?>admin/jadwal"><i class="fa fa-th-list"></i> Jadwal</a>
+            </li>
+            <li <?php echo  $pg =='tahunajaran' ? 'class="active"' : '' ?>>
+              <a href="<?php echo base_url(); ?>admin/tahunajaran"><i class="fa fa-calendar"></i> Tahun Ajaran</a>
             </li>
             <li <?php echo  $pg =='user' ? 'class="active"' : '' ?>>
               <a href="<?php echo base_url(); ?>admin/c_user"><i class="fa fa-user"></i> User</a>
@@ -55,20 +64,8 @@
             <li <?php echo  $pg =='matakuliah' ? 'class="active"' : '' ?>>
               <a href="<?php echo base_url(); ?>admin/matakuliah"><i class="fa fa-book"></i> Matakuliah</a>
             </li>
-            <li <?php echo  $pg =='tahunajaran' ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url(); ?>admin/tahunajaran"><i class="fa fa-calendar"></i> Tahun Ajaran</a>
-            </li>
             <li <?php echo  $pg =='ruangan' ? 'class="active"' : '' ?>>
               <a href="<?php echo base_url(); ?>admin/ruangan"><i class="fa fa-map-marker"></i> Ruangan</a>
-            </li>
-            <li <?php echo  $pg =='jadwal' ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url(); ?>admin/jadwal"><i class="fa fa-th-list"></i> Jadwal</a>
-            </li>
-            <li <?php echo  $pg =='perkuliahan' ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url(); ?>admin/perkuliahan"><i class="fa fa-university"></i> Perkuliahan</a>
-            </li>
-            <li <?php echo  $pg =='sap' ? 'class="active"' : '' ?>>
-              <a href="<?php echo base_url(); ?>admin/sap"><i class="fa fa-file"></i> SAP</a>
             </li>
           </ul>
 

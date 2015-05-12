@@ -3,7 +3,7 @@
     <b>LOGIN</b> USER
   </div><!-- /.login-logo -->
   <div class="login-box-body">
-    <form action="<?php echo site_url('c_login/proses_login'); ?>" method="post">
+    <form action="<?php echo site_url('login/proses_login'); ?>" method="post">
       <div class="form-group has-feedback">
         <input type="text" name="username" class="form-control" placeholder="Username" required="required"/>
       </div>

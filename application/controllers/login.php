@@ -1,22 +1,22 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class C_login extends CI_Controller {
-
-	public function __construct()
+class Login extends CI_Controller 
+{
+	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('m_login');
 	}
 
-	public function index()
+	function index()
 	{
-		$id=$this->session->userdata('id');
-        if (!empty($id)) {
+        if (!$this->session->userdata('id')) 
+        {
             $this->load->view('v_login');
         }
         else
         {
-            $level=$this->session->userdata('level');
+            $level = $this->session->userdata('level');
+
 			if($level==1)
 			{
 				redirect(site_url('dosen/c_home'));
@@ -34,6 +34,8 @@ class C_login extends CI_Controller {
 
 	public function proses_login()
 	{
+		$this->load->model('m_login');
+
 		$username=$this->input->post('username');
 		$password=$this->input->post('password');
 		$result=$this->m_login->select_user($username,$password)->row();
@@ -46,13 +48,13 @@ class C_login extends CI_Controller {
 			);
 			
 			$this->session->set_userdata( $data_user );
-			redirect(site_url('c_login/cek_session'));
+			redirect(site_url('login/cek_session'));
 		}
 		else
 		{
 			//menampilkan pesan gagal login
 			$this->session->set_flashdata('gagal_login', "Login gagal");
-			redirect(site_url('c_login'));
+			redirect(site_url('login'));
 		}
 	}
 
@@ -78,7 +80,7 @@ class C_login extends CI_Controller {
 		else
 		{
 			$this->session->set_flashdata('gagal_login', "Anda belum login");
-			redirect(site_url('c_login'));	
+			redirect(site_url('login'));	
 		}
 	}
 
