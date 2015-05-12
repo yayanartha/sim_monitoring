@@ -6,24 +6,64 @@ class Matakuliah extends CI_Controller
 {
     private $_mod_url;
 
-    public function __construct() 
+    function __construct() 
     {
         parent::__construct();
         $this->load->library('form_validation');
 
-        // if (!$this->session->userdata('is_admin_login')) 
-        //     redirect('admin/home');
-
-        $this->load->model('mMatakuliah');
-        $this->_mod_url = base_url().'admin/matakuliah';
+        $this->load->model('admin/m_matakuliah');
     }
 
-    public function index() 
+    function index() 
     {
+        $arr['mk'] = $this->m_matakuliah->semuaMk()->result();
+
         $arr['page'] = 'matakuliah';
-        $this->load->view('admin/vHeader', $arr);
-        $this->load->view('admin/vMatakuliah', $arr);
-        $this->load->view('admin/vFooter');
+
+        $this->load->view('admin/v_header', $arr);
+        $this->load->view('admin/mk/v_mk', $arr);
+        $this->load->view('admin/v_footer');
+    }
+
+    function tambahMk()
+    {
+        $id_mk = $this->input->post('inputKode');
+        $cekMk = $this->m_matakuliah->cekMk($id_mk);
+
+        if($cekMk->num_rows() > 0)
+        {
+            $data['message'] = "<div class='alert alert-warning'>Kode sudah digunakan</div>";
+            redirect('admin/matakuliah');
+        }
+        else
+        {                 
+            $info = array(
+                'id_mk'   => $this->input->post('inputKode'),
+                'nama_matkul'  => $this->input->post('inputNamaMatakuliah')
+            );
+
+            $data['message'] = "Data berhasil ditambahkan";
+            $this->m_matakuliah->simpanMk($info);
+            redirect('admin/matakuliah');
+        }
+    }
+
+    function editMk()
+    {
+        $info = array(
+            'id_mk'   => $this->input->post('id_mk'),
+            'nama_matkul'  => $this->input->post('nama_matkul')
+        );
+
+        $data['message'] = "Data berhasil diupdate";
+        $this->m_matakuliah->updateMk($info['id_mk'], $info['nama_matkul']);
+        redirect('admin/matakuliah', $data);
+    }
+
+    function deleteMk($id_mk)
+    {
+        $this->m_matakuliah->deleteMk($id_mk);
+        redirect('admin/matakuliah');
     }
 
     function get_dataMatakuliah()

@@ -1,4 +1,4 @@
-<div class="modal fade" id="modal_editMk" tabindex="-1" role="dialog" aria-labelledby="modal_editMkLabel" aria-hidden="true">
+<div class="modal fade" id="modal_editMatakuliah" tabindex="-1" role="dialog" aria-labelledby="modal_editMatakuliahLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,19 +7,19 @@
       </div>
       <div class="modal-body">
         <?php 
-        $attributes = array('name' => 'formEditMk'); 
-        echo form_open_multipart('admin/c_user/editMk', $attributes);?>
+        $attributes = array('name' => 'formEditMatakuliah'); 
+        echo form_open_multipart('admin/matakuliah/editMk', $attributes);?>
           <div class="form-group">
-            <label for="nip" class="col-sm-3 control-label">N.I.P. </label>
+            <label for="id_mk" class="col-sm-3 control-label">Kode</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="nim" name="nim" placeholder="NIM" required>
+              <input type="text" class="form-control" id="id_mk" name="id_mk" placeholder="Kode Matakuliah" required>
             </div>
           </div>
           <br/><br/>
           <div class="form-group">
-            <label for="nama" class="col-sm-3 control-label">Nama</label>
+            <label for="nama_matkul" class="col-sm-3 control-label">Nama</label>
             <div class="col-sm-9">
-              <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" required>
+              <input type="text" class="form-control" id="nama_matkul" name="nama_matkul" placeholder="Nama Matakuliah" required>
             </div>
           </div>
           <br/><br/>
