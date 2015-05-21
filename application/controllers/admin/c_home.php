@@ -20,7 +20,6 @@ class C_home extends CI_Controller {
             redirect(site_url('login'));
         }
     }
-
 }
 
 /* End of file  */

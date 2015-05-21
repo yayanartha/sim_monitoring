@@ -16,8 +16,8 @@ class Jadwal extends CI_Controller
     public function index() 
     {
         $arr['page'] = 'jadwal';
-        $this->load->view('admin/vHeader', $arr);
-        $this->load->view('admin/vJadwal', $arr);
-        $this->load->view('admin/vFooter');
+        $this->load->view('admin/v_header', $arr);
+        $this->load->view('admin/v_jadwal', $arr);
+        $this->load->view('admin/v_footer');
     }
 }

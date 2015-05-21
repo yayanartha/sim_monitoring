@@ -12,9 +12,24 @@ class Sap extends CI_Controller
         $this->load->model('admin/m_sap');
     }
 
-    function index() 
+    function index($offset = 0) 
     {
-        $arr['sap'] = $this->m_sap->semuaSap()->result();
+        $perpage = 1;
+
+        $config = array(
+        'total_rows' => count($this->m_sap->semuaSap()->result()),
+        'per_page' => $perpage
+        );
+
+        $this->pagination->initialize($config);
+        $limit['perpage'] = $perpage;
+        $limit['offset'] = $offset;
+
+        $arr['sap'] = $this->m_sap->tampilSap($limit)->result();
+
+        $arr['namaDosen'] = $this->m_sap->namaDosen()->result();
+        $arr['namaMk'] = $this->m_sap->namaMk()->result();
+        $arr['periode'] = $this->m_sap->periode()->result();
 
         $arr['page'] = 'sap';
 
@@ -37,10 +52,10 @@ class Sap extends CI_Controller
         {                 
             $info = array(
                 'id_sap'   => $this->input->post('inputID'),
-                'nip'  => $this->input->post('inputNipDosen'),
-                'id_mk'  => $this->input->post('inputKodeMk'),
-                'status'  => $this->input->post('status'),
-                'id_periode'  => $this->input->post('id_periode')
+                'nip'  => $this->input->post('inputDosen'),
+                'id_mk'  => $this->input->post('inputMatakuliah'),
+                'status'  => $this->input->post('inputStatus'),
+                'id_periode'  => $this->input->post('inputPeriode')
             );
 
             $data['message'] = "Data berhasil ditambahkan";

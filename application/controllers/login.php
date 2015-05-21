@@ -87,7 +87,7 @@ class Login extends CI_Controller
 	public function proses_logout()
 	{
 		$this->session->sess_destroy();
-		redirect(site_url('c_login'));
+		redirect(site_url('login'));
 	}
 }
 
